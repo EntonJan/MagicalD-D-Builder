@@ -3,105 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homebrew Character Builder</title>
+    <title>RPG Character Manager</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>⚔️ Charakterbogen</h1>
-            <div class="controls">
-                <button id="saveBtn">💾 Speichern</button>
-                <button id="resetBtn" class="danger">🗑️ Reset</button>
-            </div>
-            <p id="statusMsg"></p>
+    <div id="dashboard" class="view active">
+        <header class="main-header">
+            <h1>Meine Helden</h1>
+            <p>Wähle einen Charakter oder erstelle einen neuen.</p>
         </header>
+        
+        <div class="char-grid" id="charList">
+            <div class="char-card new-char" id="createCharBtn">
+                <div class="plus-icon">+</div>
+                <h3>Neuer Charakter</h3>
+            </div>
+        </div>
+    </div>
 
-        <form id="charSheet">
-            <section class="card">
-                <h2>👤 Identität</h2>
-                <div class="grid-2">
-                    <div class="input-group">
-                        <label>Name</label>
-                        <input type="text" id="charName" placeholder="Name des Helden">
-                    </div>
-                    <div class="input-group">
-                        <label>Volk</label>
-                        <input type="text" id="charRace" placeholder="z.B. Zwerg">
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label>Klasse</label>
-                    <input type="text" id="charClass" placeholder="z.B. Krieger">
-                </div>
-                <div class="input-group">
-                    <label>Klassen-Effekt / Passiv</label>
-                    <textarea id="classEffect" placeholder="Was kann die Klasse?"></textarea>
-                </div>
-            </section>
+    <div id="character-editor" class="view hidden">
+        <nav class="editor-nav">
+            <button id="backBtn" class="nav-btn">← Zurück</button>
+            <span id="editorTitle">Charakter bearbeiten</span>
+            <div class="nav-actions">
+                <button id="saveBtn" class="action-btn save">💾 Speichern</button>
+                <button id="deleteBtn" class="action-btn delete">🗑️ Löschen</button>
+            </div>
+        </nav>
 
-            <section class="card">
-                <h2>🛡️ Werte & Gold</h2>
-                <div class="grid-3">
-                    <div class="input-group">
-                        <label>Rüstungsklasse (RK)</label>
+        <div class="editor-container">
+            <aside class="sidebar">
+                <div class="img-container">
+                    <img id="displayImage" src="https://via.placeholder.com/300x400?text=Kein+Bild" alt="Charakter Bild">
+                </div>
+                <div class="img-input-group">
+                    <label>Bild-URL</label>
+                    <input type="text" id="charImage" placeholder="https://beispiel.de/bild.jpg">
+                </div>
+
+                <div class="stat-box-container">
+                    <div class="stat-box">
+                        <label>RK</label>
                         <input type="number" id="ac" value="10">
                     </div>
-                    <div class="input-group">
-                        <label>Geschwindigkeit</label>
-                        <input type="text" id="speed" placeholder="9m">
+                    <div class="stat-box">
+                        <label>Tempo</label>
+                        <input type="text" id="speed" value="9m">
                     </div>
-                    <div class="input-group">
-                        <label>Gold (GP)</label>
+                    <div class="stat-box">
+                        <label>GP</label>
                         <input type="number" id="gold" value="0">
                     </div>
                 </div>
-            </section>
+            </aside>
 
-            <section class="card">
-                <h2>✨ Magie</h2>
-                
-                <div class="spell-box">
-                    <h3>Cantrip (Zaubertrick)</h3>
-                    <input type="text" id="cantripName" placeholder="Name des Cantrips">
-                    <textarea id="cantripEffect" placeholder="Effekt (z.B. 1d10 Feuerschaden)"></textarea>
-                </div>
-
-                <div class="spell-box">
-                    <h3>Spell Slot 1</h3>
-                    <div class="flex-row">
-                        <input type="text" id="spell1Name" placeholder="Name Zauber 1">
-                        <label><input type="checkbox" id="spell1Used"> Verbraucht?</label>
+            <main class="main-content">
+                <section class="content-card">
+                    <h2>Allgemein</h2>
+                    <div class="grid-2">
+                        <div class="field">
+                            <label>Name</label>
+                            <input type="text" id="charName" placeholder="Name">
+                        </div>
+                        <div class="field">
+                            <label>Volk</label>
+                            <input type="text" id="charRace" placeholder="Volk">
+                        </div>
                     </div>
-                    <textarea id="spell1Effect" placeholder="Effekt"></textarea>
-                </div>
-
-                <div class="spell-box">
-                    <h3>Spell Slot 2</h3>
-                    <div class="flex-row">
-                        <input type="text" id="spell2Name" placeholder="Name Zauber 2">
-                        <label><input type="checkbox" id="spell2Used"> Verbraucht?</label>
+                    <div class="field">
+                        <label>Klasse</label>
+                        <input type="text" id="charClass" placeholder="Klasse">
                     </div>
-                    <textarea id="spell2Effect" placeholder="Effekt"></textarea>
-                </div>
-            </section>
+                    <div class="field">
+                        <label>Klassen-Effekt</label>
+                        <textarea id="classEffect" rows="2"></textarea>
+                    </div>
+                </section>
 
-            <section class="card">
-                <h2>🎒 Inventar</h2>
-                <div class="input-group">
-                    <label>Getragene Waffe</label>
-                    <input type="text" id="weaponName" placeholder="Waffenname">
-                    <input type="text" id="weaponEffect" placeholder="Waffeneffekt / Schaden">
-                </div>
-                <hr>
-                <div class="input-group">
-                    <label>Rucksack Inhalt</label>
-                    <textarea id="inventory" rows="6" placeholder="Seil, Fackel, Rationen..."></textarea>
-                </div>
-            </section>
-        </form>
+                <section class="content-card">
+                    <h2>Kampf & Ausrüstung</h2>
+                    <div class="field">
+                        <label>Getragene Waffe</label>
+                        <input type="text" id="weaponName" placeholder="Waffenname">
+                    </div>
+                    <div class="field">
+                        <label>Waffen-Effekt</label>
+                        <textarea id="weaponEffect" rows="2"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Inventar</label>
+                        <textarea id="inventory" rows="4"></textarea>
+                    </div>
+                </section>
+
+                <section class="content-card">
+                    <h2>Magie</h2>
+                    <div class="magic-slot">
+                        <label>Cantrip (Zaubertrick)</label>
+                        <input type="text" id="cantripName" placeholder="Name">
+                        <textarea id="cantripEffect" placeholder="Effekt"></textarea>
+                    </div>
+                    <div class="magic-slot">
+                        <label>Spell Slot 1</label>
+                        <div class="flex-check">
+                            <input type="text" id="spell1Name" placeholder="Name">
+                            <input type="checkbox" id="spell1Used"> <span>Verbraucht</span>
+                        </div>
+                        <textarea id="spell1Effect" placeholder="Effekt"></textarea>
+                    </div>
+                    <div class="magic-slot">
+                        <label>Spell Slot 2</label>
+                        <div class="flex-check">
+                            <input type="text" id="spell2Name" placeholder="Name">
+                            <input type="checkbox" id="spell2Used"> <span>Verbraucht</span>
+                        </div>
+                        <textarea id="spell2Effect" placeholder="Effekt"></textarea>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
 
     <script src="script.js"></script>
