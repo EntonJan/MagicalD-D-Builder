@@ -1,4 +1,4 @@
-const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL' // <-- PASTE YOUR URL HERE
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwc4LIOkRk49HQrj4t4A8qycYrYCVURy4e7kHlKXulnxayfZSR-P6RLct5cJZhvxlR5/exec' // <-- PASTE YOUR URL HERE
 const form = document.getElementById('charForm')
 const responseMsg = document.getElementById('response')
 const btn = document.getElementById('submitBtn')
