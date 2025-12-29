@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hall of Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .char-card {
+            background: #1a1a2e;
+            border: 1px solid #4ecca3;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .char-card h2 { color: #4ecca3; margin-top: 0; }
+        .char-card p { text-align: left; margin: 5px 0; color: #e9e9e9; }
+        .badge { font-size: 0.8em; background: #e94560; padding: 2px 8px; border-radius: 10px; }
+        .loading { text-align: center; font-style: italic; color: #95a5a6; }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1000px;">
+        <h1>📜 The Hall of Heroes</h1>
+        <div style="text-align: center;">
+            <a href="index.html" style="color: #4ecca3; text-decoration: none;">← Forge a New Character</a>
+        </div>
+        
+        <div id="characterList" class="character-grid">
+            <p class="loading">Consulting the archives...</p>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL'; // Same URL as before
+
+        async function loadCharacters() {
+            try {
+                const response = await fetch(scriptURL + "?action=read");
+                const data = await response.json();
+                const container = document.getElementById('characterList');
+                container.innerHTML = '';
+
+                data.forEach(char => {
+                    const card = document.createElement('div');
+                    card.className = 'char-card';
+                    card.innerHTML = `
+                        <h2>${char.charName}</h2>
+                        <p><strong>Player:</strong> ${char.playerName}</p>
+                        <p><span class="badge">${char.race}</span> <span class="badge">${char.charClass}</span></p>
+                        <hr style="border: 0.5px solid #0f3460;">
+                        <p>⚔️ <strong>Weapon:</strong> ${char.weapon}</p>
+                        <p>✨ <strong>Cantrip:</strong> ${char.cantrip}</p>
+                        <p>🔮 <strong>Spells:</strong> ${char.spells}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('characterList').innerHTML = "<p>Error loading archives.</p>";
+            }
+        }
+
+        window.onload = loadCharacters;
+    </script>
+</body>
+</html>
