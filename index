@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebrew Character Creator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>⚔️ Hero Chronicles</h1>
+        <p>Enter your character details to save them to the archives.</p>
+        
+        <form id="charForm">
+            <div class="grid">
+                <section>
+                    <label>Player Name</label>
+                    <input type="text" name="playerName" placeholder="Your Name" required>
+                    
+                    <label>Character Name</label>
+                    <input type="text" name="charName" placeholder="Hero Name" required>
+                    
+                    <label>Race</label>
+                    <input type="text" name="race" placeholder="e.g. Elf, Orc, Human">
+                    
+                    <label>Class</label>
+                    <input type="text" name="charClass" placeholder="e.g. Rogue, Mage">
+                </section>
+
+                <section>
+                    <label>Main Weapon</label>
+                    <input type="text" name="weapon" placeholder="e.g. Iron Dagger">
+                    
+                    <label>Cantrip</label>
+                    <input type="text" name="cantrip" placeholder="Minor Magic">
+                    
+                    <label>Spell 1</label>
+                    <input type="text" name="spell1" placeholder="First Spell">
+                    
+                    <label>Spell 2</label>
+                    <input type="text" name="spell2" placeholder="Second Spell">
+                </section>
+            </div>
+            
+            <button type="submit" id="submitBtn">Forge Character</button>
+        </form>
+        <div id="response" class="hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
