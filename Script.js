@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwc4LIOkRk49HQrj4t4A8qycYrYCVURy4e7kHlKXulnxayfZSR-P6RLct5cJZhvxlR5/exec' // <-- PASTE YOUR URL HERE
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxGHeVwsa5_R9zPIPxMhwNbGxL4FwMwKu2hBP6Ykt3Rc-Caf0825zKP0_1w3jE8_96w/exec' // <-- PASTE YOUR URL HERE
 const form = document.getElementById('charForm')
 const responseMsg = document.getElementById('response')
 const btn = document.getElementById('submitBtn')
